@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Orbia.Utils
+namespace Xunity.Utils
 {
     public static class ActionUtils
     {

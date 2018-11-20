@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace IXI.Utils
+namespace Xunity
 {
     public abstract class GameBehaviour : MonoBehaviour
     {

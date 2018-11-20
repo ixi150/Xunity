@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace IXI
+namespace Xunity.Playables
 {
     public class MaterialColorAnimation : Playable
     {

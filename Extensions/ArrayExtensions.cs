@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Orbia.Utils
+namespace Xunity.Extensions
 {
     public static class ArrayExtensions
     {

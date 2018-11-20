@@ -4,7 +4,7 @@ using System.Linq;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
-namespace IXI.ScriptableVariables
+namespace Xunity.ScriptableVariables
 {
     public abstract class ScriptableVariable<T> : ScriptableObject
     {

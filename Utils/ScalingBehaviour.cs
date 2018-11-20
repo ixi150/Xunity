@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Orbia.Utils
+namespace Xunity.Utils
 {
     public class ScalingBehaviour : MonoBehaviour
     {

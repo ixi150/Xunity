@@ -1,8 +1,8 @@
 ﻿using System;
-using IXI.ScriptableVariables;
 using UnityEngine;
+using Xunity.ScriptableVariables;
 
-namespace IXI.ReferenceVariables
+namespace Xunity.ReferenceVariables
 {
     [Serializable]
     public class ReferenceVariable<TRef, TVal, TClass>

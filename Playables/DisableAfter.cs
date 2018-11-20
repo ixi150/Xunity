@@ -1,4 +1,4 @@
-﻿namespace IXI
+﻿namespace Xunity.Playables
 {
     public class DisableAfter : Playable
     {

@@ -1,6 +1,5 @@
-﻿using IXI.ReferenceVariables;
-using IXI.Utils;
-using UnityEngine;
+﻿using UnityEngine;
+using Xunity.ReferenceVariables;
 
 namespace Xunity
 {

@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace IXI.ScriptableVariables
+namespace Xunity.ScriptableVariables
 {
     [Serializable]
     public class SerializableMonoscript : ISerializationCallbackReceiver

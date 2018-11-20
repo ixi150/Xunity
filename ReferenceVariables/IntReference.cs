@@ -1,7 +1,7 @@
 ﻿using System;
-using IXI.ScriptableVariables;
+using Xunity.ScriptableVariables;
 
-namespace IXI.ReferenceVariables
+namespace Xunity.ReferenceVariables
 {
     [Serializable]
     public class IntReference : ReferenceVariable<IntVariable, int, IntReference> { }

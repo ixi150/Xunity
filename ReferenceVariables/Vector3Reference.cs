@@ -1,8 +1,8 @@
 ﻿using System;
-using IXI.ScriptableVariables;
 using UnityEngine;
+using Xunity.ScriptableVariables;
 
-namespace IXI.ReferenceVariables
+namespace Xunity.ReferenceVariables
 {
     [Serializable]
     public class Vector3Reference : ReferenceVariable<Vector3Variable, Vector3, Vector3Reference> { }

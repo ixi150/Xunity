@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections;
-using IXI.Interfaces;
-using IXI.ReferenceVariables;
-using IXI.Utils;
 using UnityEngine;
+using Xunity.ReferenceVariables;
 
-namespace IXI
+namespace Xunity.Playables
 {
     public abstract class Playable : GameBehaviour, IPlayable
     {

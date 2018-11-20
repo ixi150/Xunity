@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace IXI.Utils.Extensions
+namespace Xunity.Extensions
 {
     public static class EnumExtensions
     {

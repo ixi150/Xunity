@@ -1,7 +1,7 @@
-﻿using IXI.Utils.Extensions;
-using UnityEngine;
+﻿using UnityEngine;
+using Xunity.Extensions;
 
-namespace IXI
+namespace Xunity.Playables
 {
     public class ParticleEffect : Playable
     {

@@ -1,4 +1,4 @@
-﻿namespace IXI.Interfaces
+﻿namespace Xunity.Playables
 {
     public interface IPlayable
     {

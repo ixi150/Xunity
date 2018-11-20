@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace IXI.ScriptableVariables
+namespace Xunity.ScriptableVariables
 {
     [CreateAssetMenu(menuName = "Data/String")]
     public class StringVariable : ScriptableVariable<string> { }
