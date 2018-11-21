@@ -4,7 +4,6 @@ namespace Xunity.Playables
 {
     public class MaterialColorAnimation : Playable
     {
-        [Header("MaterialColorAnimation")]
         [SerializeField] new Renderer renderer;
         [SerializeField] Gradient missColorGradient;
 
@@ -17,6 +16,7 @@ namespace Xunity.Playables
         {
             base.Awake();
 
+            GetComponentIfNull(ref renderer);
             sharedMaterial = renderer.sharedMaterial;
             initialColor = sharedMaterial.color;
             gradientColorKeys = missColorGradient.colorKeys;
@@ -42,6 +42,14 @@ namespace Xunity.Playables
         protected override void OnPlayUpdate(float progress)
         {
             material.color = missColorGradient.Evaluate(progress);
+        }
+
+        protected override void OnStoppedPlaying()
+        {
+        }
+
+        protected override void OnFinishPlaying()
+        {
         }
     }
 }

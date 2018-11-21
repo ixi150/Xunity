@@ -5,9 +5,7 @@ namespace Xunity.Playables
 {
     public class ParticleEffect : Playable
     {
-        [Header("ParticleEffect")] [SerializeField]
-        ParticleSystem effectPrefab;
-
+        [SerializeField] ParticleSystem effectPrefab;
         [SerializeField] ParticleEffectMethod effectGetMethod;
         [SerializeField] Vector3 particleOffset;
 
@@ -21,12 +19,16 @@ namespace Xunity.Playables
 
         public Vector3 EffectWorldPosition
         {
-            get { return CatchedTransform.TransformPoint(particleOffset); }
+            get { return transform.TransformPoint(particleOffset); }
         }
 
         protected override void OnStartPlaying()
         {
-            currentEffect = PlayParticleEffect(effectPrefab, EffectWorldPosition, CatchedTransform.rotation);
+            currentEffect = PlayParticleEffect(effectPrefab, EffectWorldPosition, transform.rotation);
+        }
+
+        protected override void OnPlayUpdate(float progress)
+        {
         }
 
         protected override void OnStoppedPlaying()
@@ -62,7 +64,7 @@ namespace Xunity.Playables
                     return null; //todo: implement object pooler
                 case ParticleEffectMethod.SpawnChildEffect:
                     if (currentEffect == null)
-                        currentEffect = Instantiate(effectPrefab, CatchedTransform);
+                        currentEffect = Instantiate(effectPrefab, transform);
                     currentEffect.Activate();
                     return currentEffect;
                 default:

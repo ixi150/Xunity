@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using Xunity.ReferenceVariables;
 
-namespace Xunity
+namespace Xunity.Behaviours
 {
     public class CameraController : GameBehaviour
     {
@@ -10,11 +10,18 @@ namespace Xunity
         [SerializeField] FloatReference smoothTime = FloatReference.New(useConstant: true, value: .5f);
 
         new protected Camera camera;
-        
         Vector3 velocity;
         Vector3 targetPosition;
 
-        public Transform Target { get { return target; } }
+        public Transform Target
+        {
+            get { return target; }
+        }
+
+        protected virtual Vector3 TargetOffset
+        {
+            get { return targetOffset; }
+        }
 
         protected override void Awake()
         {
@@ -23,12 +30,12 @@ namespace Xunity
             camera = GetComponent<Camera>();
         }
 
-        void LateUpdate()
+        protected virtual void LateUpdate()
         {
             if (target)
                 targetPosition = target.position;
 
-            Position = Vector3.SmoothDamp(Position, targetPosition + targetOffset, ref velocity, smoothTime);
+            Position = Vector3.SmoothDamp(Position, targetPosition + TargetOffset, ref velocity, smoothTime);
         }
     }
 }

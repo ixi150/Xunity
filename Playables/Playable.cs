@@ -1,24 +1,30 @@
 ﻿using System;
 using System.Collections;
 using UnityEngine;
+using Xunity.Behaviours;
 using Xunity.ReferenceVariables;
 
 namespace Xunity.Playables
 {
     public abstract class Playable : GameBehaviour, IPlayable
     {
-        [Header("Playable"), Tooltip("In seconds")] [SerializeField]
-        FloatReference duration;
+        /// <summary>
+        /// Duration of effect in seconds.
+        /// </summary>
+        [SerializeField] FloatReference duration = FloatReference.New(true, 1);
+        [SerializeField] BoolReference playOnEnable = BoolReference.New(true, true);
+        [SerializeField] BoolReference isLooping = BoolReference.New(true, true);
+        [SerializeField] BoolReference usesFixedUpdate = BoolReference.New(true);
 
-        [SerializeField] BoolReference playOnEnable;
-        [SerializeField] BoolReference isLooping;
-
-        public event Action StartedPlaying = () => { };
-        public event Action StoppedPlaying = () => { };
-        public event Action FinishedPlaying = () => { };
+        public event Action StartedPlaying = EmptyAction;
+        public event Action StoppedPlaying = EmptyAction;
+        public event Action FinishedPlaying = EmptyAction;
 
         public bool IsPlaying { get; private set; }
 
+        /// <summary>
+        /// Duration of effect in seconds.
+        /// </summary>
         public float Duration
         {
             get { return duration; }
@@ -29,6 +35,11 @@ namespace Xunity.Playables
             get { return isLooping; }
         }
 
+        public bool UsesFixedUpdate
+        {
+            get { return usesFixedUpdate; }
+        }
+
         public bool PlayOnEnable
         {
             get { return playOnEnable; }
@@ -36,12 +47,17 @@ namespace Xunity.Playables
 
         public virtual bool CanPlay
         {
-            get { return !IsPlaying && gameObject.activeInHierarchy; }
+            get { return !IsPlaying && ((Component) this).gameObject.activeInHierarchy; }
         }
 
         public virtual bool CanStop
         {
-            get { return IsPlaying && gameObject.activeInHierarchy; }
+            get { return IsPlaying && ((Component) this).gameObject.activeInHierarchy; }
+        }
+
+        protected YieldInstruction WaitForInstruction
+        {
+            get { return usesFixedUpdate ? waitForFixedUpdate : waitForEndOfFrame; }
         }
 
         public bool Play()
@@ -86,10 +102,10 @@ namespace Xunity.Playables
             StoppedPlaying();
         }
 
-        protected virtual void OnStartPlaying() { }
-        protected virtual void OnStoppedPlaying() { }
-        protected virtual void OnFinishPlaying() { }
-        protected virtual void OnPlayUpdate(float progress) { }
+        protected abstract void OnStartPlaying();
+        protected abstract void OnPlayUpdate(float progress);
+        protected abstract void OnStoppedPlaying();
+        protected abstract void OnFinishPlaying();
 
         protected override void Awake()
         {
@@ -99,17 +115,17 @@ namespace Xunity.Playables
             FinishedPlaying += OnFinishPlaying;
         }
 
-        protected virtual void OnEnable()
-        {
-            if (playOnEnable)
-                Play();
-        }
-
         protected virtual void OnDestroy()
         {
             StartedPlaying -= OnStartPlaying;
             StoppedPlaying -= OnStoppedPlaying;
             FinishedPlaying -= OnFinishPlaying;
+        }
+
+        protected virtual void OnEnable()
+        {
+            if (playOnEnable)
+                Play();
         }
 
         IEnumerator StartPlaying()
@@ -121,7 +137,7 @@ namespace Xunity.Playables
                 if (isLooping)
                     elapsed %= duration;
                 OnPlayUpdate(Mathf.Clamp01(elapsed / duration));
-                yield return null;
+                yield return WaitForInstruction;
             }
 
             Finish();

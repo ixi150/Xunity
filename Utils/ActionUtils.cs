@@ -13,8 +13,13 @@ namespace Xunity.Utils
             }
             catch (Exception e)
             {
-                Debug.LogWarning(e);
+                Debug.LogError(e);
             }
+        }
+
+        public static void SafeInvoke(Action action)
+        {
+            if (action != null) action();
         }
     }
 }
