@@ -1,19 +1,20 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using UnityEditor;
 using UnityEngine;
-using UnityEditor;
 
-[CustomEditor(typeof(Transform), true)]
-public class TransformEditor : DecoratorEditor
+namespace Xunity.Editor.BuiltInEditors
 {
-    public TransformEditor() : base("TransformInspector")
+    [CustomEditor(typeof(Transform), true)]
+    public class TransformEditor : DecoratorEditor
     {
-    }
+        public TransformEditor() : base("TransformInspector")
+        {
+        }
 
-    AnimationCurve curve = new AnimationCurve();
-    public override void OnInspectorGUI()
-    {
-        base.OnInspectorGUI();
-        curve = EditorGUILayout.CurveField(curve);
+        AnimationCurve curve = new AnimationCurve();
+        public override void OnInspectorGUI()
+        {
+            base.OnInspectorGUI();
+            curve = EditorGUILayout.CurveField(curve);
+        }
     }
 }

@@ -1,59 +1,61 @@
-﻿using UnityEditor;
-using UnityEngine;
-using System;
+﻿using System;
 using System.Reflection;
-using System.Linq;
+using UnityEditor;
 using UnityEditorInternal;
+using UnityEngine;
 
-[CustomEditor(typeof(Renderer), true)]
-public class SortingLayerEditor : Editor
+namespace Xunity.Editor.BuiltInEditors
 {
-
-    SerializedProperty[] properties;
-    string[] sortingLayerNames;
-
-    void OnEnable()
+    [CustomEditor(typeof(Renderer), true)]
+    public class SortingLayerEditor : UnityEditor.Editor
     {
-        //if (Attribute.IsDefined(target.GetType(), typeof(HasSortingLayerName)))
-        //{
-        //    var sortingLayer = (HasSortingLayerName)Attribute.GetCustomAttribute(target.GetType(), typeof(HasSortingLayerName));
-        //    properties = sortingLayer.Names.Select(s =>
-        //    {
-        //        return serializedObject.FindProperty(s);
-        //    }).ToArray();
-        //    sortingLayerNames = GetSortingLayerNames();
-        //}
-    }
 
-    public override void OnInspectorGUI()
-    {
-        base.OnInspectorGUI();
-        if (properties != null && sortingLayerNames != null)
+        SerializedProperty[] properties;
+        string[] sortingLayerNames;
+
+        void OnEnable()
         {
-            foreach (var p in properties)
+            //if (Attribute.IsDefined(target.GetType(), typeof(HasSortingLayerName)))
+            //{
+            //    var sortingLayer = (HasSortingLayerName)Attribute.GetCustomAttribute(target.GetType(), typeof(HasSortingLayerName));
+            //    properties = sortingLayer.Names.Select(s =>
+            //    {
+            //        return serializedObject.FindProperty(s);
+            //    }).ToArray();
+            //    sortingLayerNames = GetSortingLayerNames();
+            //}
+        }
+
+        public override void OnInspectorGUI()
+        {
+            base.OnInspectorGUI();
+            if (properties != null && sortingLayerNames != null)
             {
-                if (p == null)
+                foreach (var p in properties)
                 {
-                    continue;
+                    if (p == null)
+                    {
+                        continue;
+                    }
+                    int index = Mathf.Max(0, Array.IndexOf(sortingLayerNames, p.stringValue));
+                    index = EditorGUILayout.Popup(p.displayName, index, sortingLayerNames);
+
+                    p.stringValue = sortingLayerNames[index];
                 }
-                int index = Mathf.Max(0, Array.IndexOf(sortingLayerNames, p.stringValue));
-                index = EditorGUILayout.Popup(p.displayName, index, sortingLayerNames);
 
-                p.stringValue = sortingLayerNames[index];
-            }
-
-            if (GUI.changed)
-            {
-                serializedObject.ApplyModifiedProperties();
+                if (GUI.changed)
+                {
+                    serializedObject.ApplyModifiedProperties();
+                }
             }
         }
-    }
 
-    public string[] GetSortingLayerNames()
-    {
-        Type internalEditorUtilityType = typeof(InternalEditorUtility);
-        PropertyInfo sortingLayersProperty = internalEditorUtilityType.GetProperty("sortingLayerNames", BindingFlags.Static | BindingFlags.NonPublic);
-        var sortingLayers = (string[])sortingLayersProperty.GetValue(null, new object[0]);
-        return sortingLayers;
+        public string[] GetSortingLayerNames()
+        {
+            Type internalEditorUtilityType = typeof(InternalEditorUtility);
+            PropertyInfo sortingLayersProperty = internalEditorUtilityType.GetProperty("sortingLayerNames", BindingFlags.Static | BindingFlags.NonPublic);
+            var sortingLayers = (string[])sortingLayersProperty.GetValue(null, new object[0]);
+            return sortingLayers;
+        }
     }
 }
