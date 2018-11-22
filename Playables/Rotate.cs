@@ -5,7 +5,7 @@ namespace Xunity.Playables
 {
     public class Rotate : Playable
     {
-        [SerializeField] Vector3VariableReference rotationSpeed = Vector3VariableReference.New(true);
+        [SerializeField] Vector3Reference rotationSpeed = Vector3Reference.New(true);
 
         protected override void OnStartPlaying()
         {

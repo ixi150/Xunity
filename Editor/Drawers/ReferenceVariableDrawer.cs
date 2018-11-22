@@ -4,11 +4,11 @@ using Xunity.ScriptableReferences;
 
 namespace Xunity.Editor.Drawers
 {
-    [CustomPropertyDrawer(typeof(IntVariableReference))]
-    [CustomPropertyDrawer(typeof(FloatVariableReference))]
-    [CustomPropertyDrawer(typeof(BoolVariableReference))]
-    [CustomPropertyDrawer(typeof(StringVariableReference))]
-    [CustomPropertyDrawer(typeof(Vector3VariableReference))]
+    [CustomPropertyDrawer(typeof(IntReference))]
+    [CustomPropertyDrawer(typeof(FloatReference))]
+    [CustomPropertyDrawer(typeof(BoolReference))]
+    [CustomPropertyDrawer(typeof(StringReference))]
+    [CustomPropertyDrawer(typeof(Vector3Reference))]
     public class ReferenceVariableDrawer : PropertyDrawer
     {
         /// <summary>

@@ -4,5 +4,5 @@ using Xunity.ScriptableVariables;
 namespace Xunity.ScriptableReferences
 {
     [Serializable]
-    public class FloatVariableReference : VariableReference<FloatVariable, float, FloatVariableReference> { }
+    public class IntReference : VariableReference<IntVariable, int, IntReference> { }
 }

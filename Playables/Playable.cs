@@ -11,10 +11,10 @@ namespace Xunity.Playables
         /// <summary>
         /// Duration of effect in seconds.
         /// </summary>
-        [SerializeField] FloatVariableReference duration = FloatVariableReference.New(true, 1);
-        [SerializeField] BoolVariableReference playOnEnable = BoolVariableReference.New(true, true);
-        [SerializeField] BoolVariableReference isLooping = BoolVariableReference.New(true, true);
-        [SerializeField] BoolVariableReference usesFixedUpdate = BoolVariableReference.New(true);
+        [SerializeField] FloatReference duration = FloatReference.New(true, 1);
+        [SerializeField] BoolReference playOnEnable = BoolReference.New(true, true);
+        [SerializeField] BoolReference isLooping = BoolReference.New(true, true);
+        [SerializeField] BoolReference usesFixedUpdate = BoolReference.New(true);
 
         public event Action StartedPlaying = EmptyAction;
         public event Action StoppedPlaying = EmptyAction;
