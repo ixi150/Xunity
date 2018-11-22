@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using Xunity.ScriptableEvents;
 using Object = UnityEngine.Object;
 
 namespace Xunity.ScriptableVariables
@@ -9,6 +10,7 @@ namespace Xunity.ScriptableVariables
     public abstract class ScriptableVariable<T> : ScriptableObject
     {
         [SerializeField] T value;
+        [SerializeField] GameEvent changedEvent;
         [SerializeField] bool restrictAccess;
         [SerializeField] List<SerializableMonoscript> authorizedSources;
 
@@ -33,6 +35,8 @@ namespace Xunity.ScriptableVariables
 
             this.value = value;
             ValueChanged(value);
+            if (changedEvent)
+                changedEvent.Raise();
         }
 
         public bool IsAuthorized(Object source)
