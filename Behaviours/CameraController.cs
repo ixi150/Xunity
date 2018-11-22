@@ -1,13 +1,13 @@
 ﻿using UnityEngine;
-using Xunity.ReferenceVariables;
+using Xunity.ScriptableReferences;
 
 namespace Xunity.Behaviours
 {
     public class CameraController : GameBehaviour
     {
         [SerializeField] Transform target;
-        [SerializeField] Vector3Reference targetOffset = Vector3Reference.New(useConstant: true, value: Vector3.back);
-        [SerializeField] FloatReference smoothTime = FloatReference.New(useConstant: true, value: .5f);
+        [SerializeField] Vector3VariableReference targetOffset = Vector3VariableReference.New(useConstant: true, value: Vector3.back);
+        [SerializeField] FloatVariableReference smoothTime = FloatVariableReference.New(useConstant: true, value: .5f);
 
         new protected Camera camera;
         Vector3 velocity;

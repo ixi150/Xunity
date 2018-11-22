@@ -2,18 +2,18 @@
 using UnityEngine;
 using Xunity.ScriptableVariables;
 
-namespace Xunity.ReferenceVariables
+namespace Xunity.ScriptableReferences
 {
     [Serializable]
-    public class ReferenceVariable<TRef, TVal, TClass>
+    public class VariableReference<TRef, TVal, TClass>
         where TRef : ScriptableVariable<TVal>
-        where TClass : ReferenceVariable<TRef, TVal, TClass>, new()
+        where TClass : VariableReference<TRef, TVal, TClass>, new()
     {
         [SerializeField] TRef reference;
         [SerializeField] TVal value;
         [SerializeField] bool useConstant;
 
-        public static implicit operator TVal(ReferenceVariable<TRef, TVal, TClass> variable)
+        public static implicit operator TVal(VariableReference<TRef, TVal, TClass> variable)
         {
             return variable.useConstant ? variable.value : variable.reference;
         }

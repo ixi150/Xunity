@@ -1,59 +1,57 @@
 ﻿using UnityEditor;
 using UnityEngine;
-using Xunity.ReferenceVariables;
+using Xunity.ScriptableReferences;
 
 namespace Xunity.Editor.Drawers
 {
-    [CustomPropertyDrawer(typeof(IntReference))]
-    [CustomPropertyDrawer(typeof(FloatReference))]
-    [CustomPropertyDrawer(typeof(BoolReference))]
-    [CustomPropertyDrawer(typeof(StringReference))]
-    [CustomPropertyDrawer(typeof(Vector3Reference))]
+    [CustomPropertyDrawer(typeof(IntVariableReference))]
+    [CustomPropertyDrawer(typeof(FloatVariableReference))]
+    [CustomPropertyDrawer(typeof(BoolVariableReference))]
+    [CustomPropertyDrawer(typeof(StringVariableReference))]
+    [CustomPropertyDrawer(typeof(Vector3VariableReference))]
     public class ReferenceVariableDrawer : PropertyDrawer
     {
-        enum VariableSource
-        {
-            UseReference = 0,
-            UseConstant = 1,
-        }
+        /// <summary>
+        /// Options to display in the popup to select constant or variable.
+        /// </summary>
+        private readonly string[] popupOptions =
+            {"Use Variable", "Use Constant"};
+
+        /// <summary> Cached style to use to draw the popup button. </summary>
+        private GUIStyle popupStyle;
 
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
-            // Using BeginProperty / EndProperty on the parent property means that
-            // prefab override logic works on the entire property.
-            EditorGUI.BeginProperty(position, label, property);
+            if (popupStyle == null)
+                popupStyle = new GUIStyle(GUI.skin.GetStyle("PaneOptions"))
+                    {imagePosition = ImagePosition.ImageOnly};
 
-            // Draw label
-            position = EditorGUI.PrefixLabel(position, GUIUtility.GetControlID(FocusType.Passive), label);
+            EditorGUI.BeginChangeCheck();
+            label = EditorGUI.BeginProperty(position, label, property);
+            position = EditorGUI.PrefixLabel(position, label);
 
-            // Don't make child fields be indented
+            // Calculate rect for configuration button
+            var buttonRect = new Rect(position);
+            buttonRect.yMin += popupStyle.margin.top;
+            buttonRect.width = popupStyle.fixedWidth + popupStyle.margin.right;
+            position.xMin = buttonRect.xMax;
+
+            // Store old indent level and set it to 0, the PrefixLabel takes care of it
             int indent = EditorGUI.indentLevel;
             EditorGUI.indentLevel = 0;
 
-            // Calculate rects
-            var boolRect = position;
-            boolRect.width = 16f;
-            var valueRect = position;
-            valueRect.x += boolRect.width;
-            valueRect.width -= boolRect.width;
-
-            // Draw fields - passs GUIContent.none to each so they are drawn without labels
+            // Get properties
             EditorGUI.BeginChangeCheck();
             var useConstant = property.FindPropertyRelative("useConstant");
-            var varSource = useConstant.boolValue ? VariableSource.UseConstant : VariableSource.UseReference;
-            varSource = (VariableSource) EditorGUI.EnumPopup(boolRect, varSource);
-            useConstant.boolValue = varSource == VariableSource.UseConstant;
-
+            useConstant.boolValue =
+                EditorGUI.Popup(buttonRect, useConstant.boolValue ? 1 : 0, popupOptions, popupStyle) > 0;
             var varProp = property.FindPropertyRelative(useConstant.boolValue ? "value" : "reference");
-            EditorGUI.PropertyField(valueRect, varProp, GUIContent.none);
+            EditorGUI.PropertyField(position, varProp, GUIContent.none);
 
-            // Set indent back to what it was
-            EditorGUI.indentLevel = indent;
             if (EditorGUI.EndChangeCheck())
-            {
-                EditorUtility.SetDirty(property.serializedObject.targetObject);
-            }
+                property.serializedObject.ApplyModifiedProperties();
 
+            EditorGUI.indentLevel = indent;
             EditorGUI.EndProperty();
         }
     }

@@ -1,11 +1,11 @@
 ﻿using UnityEngine;
-using Xunity.ReferenceVariables;
+using Xunity.ScriptableReferences;
 
 namespace Xunity.Playables
 {
     public class Rotate : Playable
     {
-        [SerializeField] Vector3Reference rotationSpeed = Vector3Reference.New(true);
+        [SerializeField] Vector3VariableReference rotationSpeed = Vector3VariableReference.New(true);
 
         protected override void OnStartPlaying()
         {
