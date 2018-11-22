@@ -31,7 +31,7 @@ namespace Xunity.Editor.Drawers
             valueRect.x += refRect.width;
             valueRect.width -= refRect.width;
 
-            // Draw fields - passs GUIContent.none to each so they are drawn without labels
+            // Draw fields - pass GUIContent.none to each so they are drawn without labels
             EditorGUI.PropertyField(refRect, property, GUIContent.none);
             if (property.objectReferenceValue)
             {

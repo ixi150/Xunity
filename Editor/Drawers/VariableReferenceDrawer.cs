@@ -9,7 +9,7 @@ namespace Xunity.Editor.Drawers
     [CustomPropertyDrawer(typeof(BoolReference))]
     [CustomPropertyDrawer(typeof(StringReference))]
     [CustomPropertyDrawer(typeof(Vector3Reference))]
-    public class ReferenceVariableDrawer : PropertyDrawer
+    public class VariableReferenceDrawer : PropertyDrawer
     {
         /// <summary>
         /// Options to display in the popup to select constant or variable.
