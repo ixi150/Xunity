@@ -38,6 +38,12 @@ namespace Xunity.Behaviours
 
         public Vector3 Position
         {
+            get { return transform.position; }
+            set { transform.position = value; }
+        }
+
+        public Vector3 LocalPosition
+        {
             get { return transform.localPosition; }
             set { transform.localPosition = value; }
         }
@@ -110,7 +116,7 @@ namespace Xunity.Behaviours
         {
             component = GetComponent<T>();
         }
-        
+
         protected void GetComponentIfNull<T>(ref T component) where T : Component
         {
             if (component == null)
