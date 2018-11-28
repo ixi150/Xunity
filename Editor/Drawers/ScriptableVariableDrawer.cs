@@ -4,11 +4,7 @@ using Xunity.ScriptableVariables;
 
 namespace Xunity.Editor.Drawers
 {
-    [CustomPropertyDrawer(typeof(IntVariable))]
-    [CustomPropertyDrawer(typeof(FloatVariable))]
-    [CustomPropertyDrawer(typeof(BoolVariable))]
-    [CustomPropertyDrawer(typeof(StringVariable))]
-    [CustomPropertyDrawer(typeof(Vector3Variable))]
+    [CustomPropertyDrawer(typeof(ScriptableVariableBase), true)]
     public class ScriptableVariableDrawer : PropertyDrawer
     {
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)

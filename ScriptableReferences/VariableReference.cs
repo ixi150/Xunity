@@ -5,7 +5,7 @@ using Xunity.ScriptableVariables;
 namespace Xunity.ScriptableReferences
 {
     [Serializable]
-    public class VariableReference<TRef, TVal, TClass>
+    public class VariableReference<TRef, TVal, TClass> : VariableReferenceBase
         where TRef : ScriptableVariable<TVal>
         where TClass : VariableReference<TRef, TVal, TClass>, new()
     {
@@ -18,8 +18,12 @@ namespace Xunity.ScriptableReferences
             return variable.useConstant ? variable.value : variable.reference;
         }
 
-        public static TClass New(bool useConstant = false, TVal value = default(TVal),
-            TRef reference = default(TRef))
+        public static TClass New
+        (
+            bool useConstant = false,
+            TVal value = default(TVal),
+            TRef reference = default(TRef)
+        )
         {
             return new TClass
             {
@@ -28,12 +32,5 @@ namespace Xunity.ScriptableReferences
                 reference = reference,
             };
         }
-
-//        public ReferenceVariable(bool useConstant = false, TVal value = default(TVal), TRef reference = default(TRef))
-//        {
-//            this.useConstant = useConstant;
-//            this.value = value;
-//            this.reference = reference;
-//        }
     }
 }

@@ -1,11 +1,9 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+using System.Collections.Generic;
 using Xunity.Base;
 
 namespace Xunity.ScriptableEvents
 {
-    [CreateAssetMenu]
-    public class GameEvent : ScriptableAsset
+    public class VariableEvent<T> : ScriptableAsset
     {
         readonly List<GameEventListener> eventListeners = new List<GameEventListener>();
         readonly HashSet<GameEventListener> hashedListeners = new HashSet<GameEventListener>();
@@ -15,7 +13,7 @@ namespace Xunity.ScriptableEvents
             get { return eventListeners; }
         }
 
-        public void Raise()
+        public void Raise(T value)
         {
             for (int i = eventListeners.Count - 1; i >= 0; i--)
                 eventListeners[i].OnEventRaised();

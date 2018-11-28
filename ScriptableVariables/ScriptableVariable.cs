@@ -1,18 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
+using Xunity.Authorization;
 using Xunity.ScriptableEvents;
-using Object = UnityEngine.Object;
 
 namespace Xunity.ScriptableVariables
 {
-    public abstract class ScriptableVariable<T> : ScriptableObject
+    public abstract class ScriptableVariable<T> : ScriptableVariableBase
     {
         [SerializeField] T value;
-        [SerializeField] GameEvent changedEvent;
-        [SerializeField] bool restrictAccess;
-        [SerializeField] List<SerializableMonoscript> authorizedSources;
+        [SerializeField] VariableEvent<T> changedEvent;
+        [SerializeField] AuthorizedSources authorizedSources;
 
         public event Action<T> ValueChanged = (_) => { };
 
@@ -21,12 +18,13 @@ namespace Xunity.ScriptableVariables
             return variable ? variable.value : default(T);
         }
 
-        public void Set(T value, Object source = null)
+        public void Set(T value, object source = null)
         {
-            if (restrictAccess && !IsAuthorized(source))
+            if (!authorizedSources.IsAuthorized(source))
             {
-                string error = "Unauthorized set " + value + " attempt by " + (source ? source.ToString() : "null");
-                Debug.LogError(error, source);
+                string error = "Unauthorized set " + value + " attempt by " +
+                               (source == null ? "null" : source.ToString());
+                Debug.LogError(error, this);
                 return;
             }
 
@@ -36,17 +34,9 @@ namespace Xunity.ScriptableVariables
             this.value = value;
             ValueChanged(value);
             if (changedEvent)
-                changedEvent.Raise();
+                changedEvent.Raise(value);
         }
 
-        public bool IsAuthorized(Object source)
-        {
-            if (source == null)
-                return false;
-
-            string sourceType = source.GetType().ToString();
-            return authorizedSources.Any(_ => _ == sourceType);
-        }
 
         public override string ToString()
         {

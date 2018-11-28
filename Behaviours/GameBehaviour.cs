@@ -9,8 +9,8 @@ namespace Xunity.Behaviours
         protected static readonly YieldInstruction waitForEndOfFrame = new WaitForEndOfFrame();
         protected static readonly YieldInstruction waitForFixedUpdate = new WaitForFixedUpdate();
 
-        Transform caughtTransform;
-        GameObject caughtGameObject;
+        Transform cachedTransform;
+        GameObject cachedGameObject;
 
         // ReSharper disable once InconsistentNaming
         // ReSharper disable once MemberCanBeProtected.Global
@@ -18,7 +18,7 @@ namespace Xunity.Behaviours
         public new Transform transform
         {
 #if UNITY_EDITOR
-            get { return caughtTransform ? caughtTransform : caughtTransform = base.transform; }
+            get { return cachedTransform ? cachedTransform : cachedTransform = base.transform; }
 #else
             get { return caughtTransform; }
 #endif
@@ -30,7 +30,7 @@ namespace Xunity.Behaviours
         public new GameObject gameObject
         {
 #if UNITY_EDITOR
-            get { return caughtGameObject ? caughtGameObject : caughtGameObject = base.gameObject; }
+            get { return cachedGameObject ? cachedGameObject : cachedGameObject = base.gameObject; }
 #else
             get { return caughtGameObject; }
 #endif
@@ -82,8 +82,8 @@ namespace Xunity.Behaviours
 
         protected virtual void Awake()
         {
-            caughtTransform = base.transform;
-            caughtGameObject = base.gameObject;
+            cachedTransform = base.transform;
+            cachedGameObject = base.gameObject;
         }
 
         protected void ForEachChild(Action<Transform> actionOnChild)

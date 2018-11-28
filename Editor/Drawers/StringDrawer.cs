@@ -8,7 +8,7 @@ namespace Xunity.Editor.Drawers
     {
         public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
         {
-            return base.GetPropertyHeight(property, label) * 5;
+            return base.GetPropertyHeight(property, label) * 3;
         }
 
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
