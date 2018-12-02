@@ -7,10 +7,10 @@ namespace Xunity.ScriptableEvents
     [CreateAssetMenu]
     public class GameEvent : ScriptableAsset
     {
-        readonly List<GameEventListener> eventListeners = new List<GameEventListener>();
-        readonly HashSet<GameEventListener> hashedListeners = new HashSet<GameEventListener>();
+        readonly List<GameEventListenerBase> eventListeners = new List<GameEventListenerBase>();
+        readonly HashSet<GameEventListenerBase> hashedListeners = new HashSet<GameEventListenerBase>();
 
-        public IEnumerable<GameEventListener> Listeners
+        public IEnumerable<GameEventListenerBase> Listeners
         {
             get { return eventListeners; }
         }
@@ -21,7 +21,7 @@ namespace Xunity.ScriptableEvents
                 eventListeners[i].OnEventRaised();
         }
 
-        public void RegisterListener(GameEventListener listener)
+        public void RegisterListener(GameEventListenerBase listener)
         {
             if (hashedListeners.Contains(listener))
                 return;
@@ -30,7 +30,7 @@ namespace Xunity.ScriptableEvents
             eventListeners.Add(listener);
         }
 
-        public void UnregisterListener(GameEventListener listener)
+        public void UnregisterListener(GameEventListenerBase listener)
         {
             if (!hashedListeners.Contains(listener))
                 return;
