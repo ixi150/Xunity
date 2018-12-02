@@ -20,7 +20,7 @@ namespace Xunity.Behaviours
 #if UNITY_EDITOR
             get { return cachedTransform ? cachedTransform : cachedTransform = base.transform; }
 #else
-            get { return caughtTransform; }
+            get { return cachedTransform; }
 #endif
         }
 
@@ -32,7 +32,7 @@ namespace Xunity.Behaviours
 #if UNITY_EDITOR
             get { return cachedGameObject ? cachedGameObject : cachedGameObject = base.gameObject; }
 #else
-            get { return caughtGameObject; }
+            get { return cachedGameObject; }
 #endif
         }
 
