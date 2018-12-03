@@ -15,6 +15,7 @@ namespace Xunity.Editor.Drawers
 
         /// <summary> Cached style to use to draw the popup button. </summary>
         GUIStyle popupStyle;
+
         GUIStyle plusStyle;
         GUIStyle minusStyle;
 
@@ -34,7 +35,7 @@ namespace Xunity.Editor.Drawers
             CashGuiStyle(ref plusStyle, "OL Plus");
             CashGuiStyle(ref minusStyle, "OL Minus");
             var iconWidth = popupStyle.fixedWidth + popupStyle.margin.right;
-            
+
             EditorGUI.BeginChangeCheck();
             label = EditorGUI.BeginProperty(position, label, property);
             position = EditorGUI.PrefixLabel(position, label);
@@ -70,14 +71,14 @@ namespace Xunity.Editor.Drawers
                 array.arraySize = EditorGUI.DelayedIntField(leftRect, "Size", array.arraySize);
                 leftRect.xMin -= buttonRect.width;
                 if (EditorGUI.Toggle(rightRect, "", false, plusStyle))
-                    Debug.Log("Add");
+                    array.arraySize++;
 
                 for (var i = 0; i < array.arraySize; i++)
                 {
                     rightRect.y = leftRect.y += leftRect.height;
                     EditorGUI.PropertyField(leftRect, array.GetArrayElementAtIndex(i), GUIContent.none);
                     if (EditorGUI.Toggle(rightRect, "", false, minusStyle))
-                        Debug.Log("Remove " + i);
+                        array.DeleteArrayElementAtIndex(i);
                 }
             }
             else

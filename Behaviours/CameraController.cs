@@ -72,12 +72,12 @@ namespace Xunity.Behaviours
             camera.transparencySortMode = sortModeTransparency;
         }
 
-        protected virtual void LateUpdate()
+        protected virtual void FixedUpdate()
         {
             if (targets && targets.Count > 0)
                 targetPosition = TargetPosition;
 
-            Position = Vector3.SmoothDamp(Position, targetPosition + TargetOffset, ref velocity, smoothTime);
+            Position = Vector3.SmoothDamp(Position, TargetOffset, ref velocity, smoothTime);
         }
 
         Vector3 GetModifiersOffsetFromTarget(Transform target)
@@ -85,7 +85,7 @@ namespace Xunity.Behaviours
             return offsetModifiers
                        .NotNull()
                        .Select(modifier => modifier.Invoke(target))
-                       .Sum() / offsetModifiers.Length;
+                       .Sum();
         }
     }
 }

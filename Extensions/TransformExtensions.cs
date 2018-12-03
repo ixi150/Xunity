@@ -4,17 +4,26 @@ namespace Xunity.Extensions
 {
     public static class TransformExtensions
     {
-        public static void ModifyPosition(this Transform transform, float? x = null, float? y = null, float? z = null)
+        public static void ModifyPosition(this Transform transform, 
+            float x = float.NaN,
+            float y = float.NaN,
+            float z = float.NaN)
         {
             transform.position = transform.position.Modified(x, y, z);
         }
 
-        public static void ModifyLocalPosition(this Transform transform, float? x = null, float? y = null, float? z = null)
+        public static void ModifyLocalPosition(this Transform transform, 
+            float x = float.NaN,
+            float y = float.NaN,
+            float z = float.NaN)
         {
             transform.localPosition = transform.localPosition.Modified(x, y, z);
         }
 
-        public static void ModifyLocalScale(this Transform transform, float? x = null, float? y = null, float? z = null)
+        public static void ModifyLocalScale(this Transform transform, 
+            float x = float.NaN,
+            float y = float.NaN,
+            float z = float.NaN)
         {
             transform.localScale = transform.localScale.Modified(x, y, z);
         }

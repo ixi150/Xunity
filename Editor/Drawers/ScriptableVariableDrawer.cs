@@ -33,6 +33,13 @@ namespace Xunity.Editor.Drawers
             {
                 EditorGUI.LabelField(valueRect, property.objectReferenceValue.ToString());
             }
+            else if (GUI.Button(valueRect, "Create"))
+            {
+                var typeName = property.type.Replace("PPtr<$", "").Trim('>');
+                var newSo = ScriptableObject.CreateInstance(typeName);
+                AssetDatabase.CreateAsset(newSo, "");
+                property.objectReferenceValue = newSo;
+            }
 
             // Set indent back to what it was
             EditorGUI.indentLevel = indent;

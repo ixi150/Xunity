@@ -5,24 +5,31 @@ using UnityEngine;
 
 namespace Xunity.Morphables
 {
-    [Serializable]
     public class IntMorph : MorphableVariable<int>
     {
     }
-    
-    [Serializable]
+
     public class StringMorph : MorphableVariable<string>
     {
     }
 
+    [Serializable]
     public class MorphableVariable<T> : MorphableBase, IEnumerable<T>
     {
         [SerializeField] T[] array = {default(T)};
         [SerializeField] bool isArray = false;
 
+        public static implicit operator T(MorphableVariable<T> variable)
+        {
+            return variable != null ? variable.array[0] : default(T);
+        }
+
         public IEnumerator<T> GetEnumerator()
         {
-            return new MorphEnumerator(array, isArray ? array.Length : 1);
+            int size = isArray ? array.Length : 1;
+            for (var i = 0; i < size; i++)
+                yield return array[i];
+            //return new MorphEnumerator(array, isArray ? );
         }
 
         IEnumerator IEnumerable.GetEnumerator()

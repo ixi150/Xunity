@@ -9,12 +9,5 @@ namespace Xunity.Editor.BuiltInEditors
         public TransformEditor() : base("TransformInspector")
         {
         }
-
-        AnimationCurve curve = new AnimationCurve();
-        public override void OnInspectorGUI()
-        {
-            base.OnInspectorGUI();
-            curve = EditorGUILayout.CurveField(curve);
-        }
     }
 }

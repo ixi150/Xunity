@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using Xunity.Extensions;
 using Xunity.ScriptableReferences;
+using Xunity.Utils;
 using Object = UnityEngine.Object;
 
 namespace Xunity.ScriptableFunctions
@@ -11,6 +13,7 @@ namespace Xunity.ScriptableFunctions
     {
         [SerializeField] Method method;
         [SerializeField] FloatReference scale = FloatReference.New(true, 1);
+        [SerializeField] Vector3Reference axisScale = Vector3Reference.New(true, Vector3.one);
 
         readonly Dictionary<Component, Object> cache = new Dictionary<Component, Object>();
 
@@ -25,7 +28,7 @@ namespace Xunity.ScriptableFunctions
 
         public override Vector3 Invoke(Component key)
         {
-            return GetVector3(key) * scale;
+            return GetVector3(key).Multiply(axisScale) * scale;
         }
 
         Vector3 GetVector3(Component key)
