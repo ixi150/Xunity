@@ -31,7 +31,6 @@ namespace Xunity.Playables
 
         protected override void OnStoppedPlaying()
         {
-            throw new System.NotImplementedException();
         }
     }
 }

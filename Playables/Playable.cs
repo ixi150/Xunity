@@ -128,6 +128,11 @@ namespace Xunity.Playables
                 Play();
         }
 
+        void OnDisable()
+        {
+            ForceStop();
+        }
+
         IEnumerator StartPlaying()
         {
             var elapsed = 0f;
