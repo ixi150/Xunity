@@ -15,7 +15,12 @@ namespace Xunity.ScriptableReferences
 
         public static implicit operator TVal(VariableReference<TRef, TVal, TClass> variable)
         {
-            return variable.useConstant ? variable.value : variable.reference;
+            return variable.Value;
+        }
+
+        public TVal Value
+        {
+            get { return useConstant ? value : reference; }
         }
 
         public static TClass New

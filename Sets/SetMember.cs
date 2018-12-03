@@ -1,12 +1,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Xunity.Extensions;
+using Xunity.Morphables;
 
 namespace Xunity.Sets
 {
     public class SetMember : MonoBehaviour
     {
-        [SerializeField] SetCollection[] sets;
+        [SerializeField] SetMorph sets;
         [SerializeField] MembershipScope membershipScope;
 
         enum MembershipScope

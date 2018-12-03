@@ -1,4 +1,5 @@
-﻿using UnityEditor;
+﻿using System.IO;
+using UnityEditor;
 using UnityEngine;
 using Xunity.ScriptableVariables;
 
@@ -37,7 +38,18 @@ namespace Xunity.Editor.Drawers
             {
                 var typeName = property.type.Replace("PPtr<$", "").Trim('>');
                 var newSo = ScriptableObject.CreateInstance(typeName);
-                AssetDatabase.CreateAsset(newSo, "");
+                string path = AssetDatabase.GetAssetPath (Selection.activeObject);
+                if (path == "") 
+                {
+                    path = "Assets";
+                } 
+                else if (Path.GetExtension (path) != "") 
+                {
+                    path = path.Replace (Path.GetFileName (AssetDatabase.GetAssetPath (Selection.activeObject)), "");
+                }
+                string assetPathAndName = AssetDatabase.GenerateUniqueAssetPath (path + "/" + typeName + ".asset");
+                AssetDatabase.CreateAsset(newSo, assetPathAndName);
+                
                 property.objectReferenceValue = newSo;
             }
 

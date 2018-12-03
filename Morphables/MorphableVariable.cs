@@ -2,16 +2,15 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Xunity.Sets;
 
 namespace Xunity.Morphables
 {
-    public class IntMorph : MorphableVariable<int>
-    {
-    }
-
-    public class StringMorph : MorphableVariable<string>
-    {
-    }
+    public abstract class MorphableBase{}
+    
+    [Serializable] public class IntMorph : MorphableVariable<int>{}
+    [Serializable] public class StringMorph : MorphableVariable<string>{}
+    [Serializable] public class SetMorph : MorphableVariable<SetCollection>{}
 
     [Serializable]
     public class MorphableVariable<T> : MorphableBase, IEnumerable<T>
@@ -29,7 +28,6 @@ namespace Xunity.Morphables
             int size = isArray ? array.Length : 1;
             for (var i = 0; i < size; i++)
                 yield return array[i];
-            //return new MorphEnumerator(array, isArray ? );
         }
 
         IEnumerator IEnumerable.GetEnumerator()

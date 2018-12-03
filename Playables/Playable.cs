@@ -91,8 +91,8 @@ namespace Xunity.Playables
         protected void ForcePlay()
         {
             IsPlaying = true;
-            StartCoroutine(StartPlaying());
             StartedPlaying();
+            StartCoroutine(StartPlaying());
         }
 
         protected void ForceStop()
@@ -131,7 +131,7 @@ namespace Xunity.Playables
         IEnumerator StartPlaying()
         {
             var elapsed = 0f;
-            while (elapsed < duration)
+            while (elapsed < duration || isLooping)
             {
                 elapsed += Time.deltaTime;
                 if (isLooping)
