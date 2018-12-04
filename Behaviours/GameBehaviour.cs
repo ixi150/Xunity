@@ -99,7 +99,7 @@ namespace Xunity.Behaviours
 
         protected new void InvokeRepeating(string action, float delay, float repeatRate)
         {
-            throw new WrongMethodException("Use Invoke(Action action, float delay, float repeatRate) instead");
+            throw new WrongMethodException("Use InvokeRepeating(Action action, float delay, float repeatRate) instead");
         }
 
         protected void Invoke(Action action, float delay)
@@ -107,7 +107,7 @@ namespace Xunity.Behaviours
             base.Invoke(action.Method.Name, delay);
         }
 
-        protected void Invoke(Action action, float delay, float repeatRate)
+        protected void InvokeRepeating(Action action, float delay, float repeatRate)
         {
             base.InvokeRepeating(action.Method.Name, delay, repeatRate);
         }

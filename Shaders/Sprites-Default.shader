@@ -29,7 +29,7 @@ Shader "Sprites/Tiled"
         Cull Off
         Lighting Off
         ZWrite Off
-        Blend One OneMinusSrcAlpha
+        //Blend One OneMinusSrcAlpha
 
         Pass
         {

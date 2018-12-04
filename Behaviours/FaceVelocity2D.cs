@@ -1,26 +1,28 @@
 ﻿using UnityEngine;
-using Xunity.Behaviours;
 using Xunity.ScriptableReferences;
 
-[RequireComponent(typeof(Rigidbody2D))]
-public class FaceVelocity2D : GameBehaviour
+namespace Xunity.Behaviours
 {
-    [SerializeField] FloatReference smoothTime = FloatReference.New(true, .5f);
-
-    Rigidbody2D rb;
-    Vector2 smoothVelocity;
-
-    protected override void Awake()
+    [RequireComponent(typeof(Rigidbody2D))]
+    public class FaceVelocity2D : GameBehaviour
     {
-        base.Awake();
+        [SerializeField] FloatReference smoothTime = FloatReference.New(true, .5f);
 
-        GetComponentIfNull(ref rb);
-    }
+        Rigidbody2D rb;
+        Vector2 smoothVelocity;
 
-    void FixedUpdate()
-    {
-        //Mathf.SmoothDampAngle()
+        protected override void Awake()
+        {
+            base.Awake();
+
+            GetComponentIfNull(ref rb);
+        }
+
+        void FixedUpdate()
+        {
+            //Mathf.SmoothDampAngle()
         
-        transform.right = Vector2.SmoothDamp(transform.right, rb.velocity, ref smoothVelocity, smoothTime);
+            transform.right = Vector2.SmoothDamp(transform.right, rb.velocity, ref smoothVelocity, smoothTime);
+        }
     }
 }
