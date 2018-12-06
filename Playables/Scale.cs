@@ -4,10 +4,9 @@ namespace Xunity.Playables
 {
     public class Scale : Playable
     {
-        [SerializeField] AnimationCurve scalingCurve = new AnimationCurve();
+        [SerializeField] AnimationCurve scalingCurve = AnimationCurve.Linear(0,1,1,1);
         
         Vector3 initialScale;
-        float maxTime;
         
         protected override void Awake()
         {

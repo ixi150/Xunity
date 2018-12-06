@@ -3,7 +3,9 @@
     public interface IPlayable
     {
         bool IsPlaying { get; }
-        bool Play();
-        bool Stop();
+        void Play();
+        void Play(out bool success);
+        void Stop();
+        void Stop(out bool success);
     }
 }

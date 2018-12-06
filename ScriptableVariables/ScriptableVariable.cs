@@ -18,23 +18,23 @@ namespace Xunity.ScriptableVariables
             return variable ? variable.value : default(T);
         }
 
-        public void Set(T value, object source = null)
+        public virtual void Set(T v, object source = null)
         {
             if (!authorizedSources.IsAuthorized(source))
             {
-                string error = "Unauthorized set " + value + " attempt by " +
+                string error = "Unauthorized set " + v + " attempt by " +
                                (source == null ? "null" : source.ToString());
                 Debug.LogError(error, this);
                 return;
             }
 
-            if (this.value.Equals(value))
+            if (this.value.Equals(v))
                 return;
 
-            this.value = value;
-            ValueChanged(value);
+            this.value = v;
+            ValueChanged(v);
             if (changedEvent)
-                changedEvent.Raise(value);
+                changedEvent.Raise(v);
         }
 
 

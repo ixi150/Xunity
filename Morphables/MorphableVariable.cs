@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Xunity.LerpEffects;
 using Xunity.Sets;
 
 namespace Xunity.Morphables
@@ -11,6 +12,7 @@ namespace Xunity.Morphables
     [Serializable] public class IntMorph : MorphableVariable<int>{}
     [Serializable] public class StringMorph : MorphableVariable<string>{}
     [Serializable] public class SetMorph : MorphableVariable<SetCollection>{}
+    [Serializable] public class LerpEffectMorph : MorphableVariable<LerpEffect>{}
 
     [Serializable]
     public class MorphableVariable<T> : MorphableBase, IEnumerable<T>

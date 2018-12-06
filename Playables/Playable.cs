@@ -60,22 +60,40 @@ namespace Xunity.Playables
             get { return usesFixedUpdate ? waitForFixedUpdate : waitForEndOfFrame; }
         }
 
-        public bool Play()
+        public void Play()
+        {
+            bool success;
+            Play(out success);
+        }
+        
+        public void Play(out bool success)
         {
             if (!CanPlay)
-                return false;
+            {
+                success = false;
+                return;
+            }
 
             ForcePlay();
-            return true;
+            success = true;
         }
 
-        public bool Stop()
+        public void Stop()
+        {
+            bool success;
+            Stop(out success);
+        }
+        
+        public void Stop(out bool success)
         {
             if (!CanStop)
-                return false;
+            {
+                success = false;
+                return;
+            }
 
             ForceStop();
-            return true;
+            success = true;
         }
 
         public virtual bool Play(Vector3 position)

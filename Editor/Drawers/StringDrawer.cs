@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Xunity.Editor.Drawers
 {
-    [CustomPropertyDrawer(typeof(string))]
+    //[CustomPropertyDrawer(typeof(string))]
     public class StringDrawer : PropertyDrawer
     {
         public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
