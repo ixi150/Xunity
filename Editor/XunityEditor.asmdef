@@ -1,0 +1,12 @@
+{
+    "name": "XunityEditor",
+    "references": [
+        "Xunity"
+    ],
+    "optionalUnityReferences": [],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false
+}

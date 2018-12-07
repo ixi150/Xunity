@@ -68,6 +68,10 @@ namespace Xunity.Behaviours
             base.Awake();
 
             camera = GetComponent<Camera>();
+            if (camera == null)
+                camera = Camera.main;
+            if (camera == null)
+                return;
             camera.opaqueSortMode = sortModeOpaque;
             camera.transparencySortMode = sortModeTransparency;
         }
