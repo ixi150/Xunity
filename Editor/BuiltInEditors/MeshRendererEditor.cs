@@ -9,21 +9,25 @@ namespace Xunity.Editor.BuiltInEditors
     //[CustomEditor(typeof(MeshRenderer), true)]
     public class MeshRendererEditor : DecoratorEditor
     {
-        const string scriptName = "MeshRendererInspector";
-        public MeshRendererEditor() : base(scriptName) { }
+        const string SCRIPT_NAME = "MeshRendererInspector";
+        public MeshRendererEditor() : base(SCRIPT_NAME) { }
 
         SerializedProperty layerID, order;
         string[] sortingLayerNames;
+        
         private void OnEnable()
         {
-            //Init(scriptName);
-            layerID = serializedObject.FindProperty("m_SortingLayerID");
-            order = serializedObject.FindProperty("m_SortingOrder");
-            sortingLayerNames = GetSortingLayerNames();
+//            Init(SCRIPT_NAME);
+//            layerID = serializedObject.FindProperty("m_SortingLayerID");
+//            order = serializedObject.FindProperty("m_SortingOrder");
+//            sortingLayerNames = GetSortingLayerNames();
         }
 
         public override void OnInspectorGUI()
         {
+            base.OnInspectorGUI();
+            return;
+            
             EditorGUILayout.PropertyField(order);
             int index = layerID.intValue;
             index = EditorGUILayout.Popup("Sorting Layer", index, sortingLayerNames);
@@ -47,7 +51,7 @@ namespace Xunity.Editor.BuiltInEditors
                 serializedObject.ApplyModifiedProperties();
             }
 
-            base.OnInspectorGUI();
+            //base.OnInspectorGUI();
         }
 
         public string[] GetSortingLayerNames()

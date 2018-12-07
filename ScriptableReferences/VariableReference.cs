@@ -15,7 +15,7 @@ namespace Xunity.ScriptableReferences
 
         public static implicit operator TVal(VariableReference<TRef, TVal, TClass> variable)
         {
-            return variable.Value;
+            return variable == null ? default(TVal) : variable.Value;
         }
 
         public TVal Value

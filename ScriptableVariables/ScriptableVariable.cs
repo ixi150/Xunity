@@ -40,7 +40,7 @@ namespace Xunity.ScriptableVariables
 
         public override string ToString()
         {
-            return value.ToString();
+            return value == null ? "null" : value.ToString();
         }
     }
 }
