@@ -1,49 +1,49 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.ComponentModel.Design;
-using UnityEngine;
+﻿using UnityEngine;
 using Xunity.ScriptableEvents;
 
-[RequireComponent(typeof(AudioSource))]
-public class AudioPlayer : GameEventListenerBase
+namespace Xunity.Audio
 {
-    [SerializeField] protected AudioEvent audioEvent;
-    [SerializeField] protected bool playOnEnable;
-
-    protected AudioSource audioSource;
-
-    public AudioEvent AudioEvent
+    [RequireComponent(typeof(AudioSource))]
+    public class AudioPlayer : GameEventListenerBase
     {
-        get { return audioEvent; }
-        set { audioEvent = value; }
-    }
+        [SerializeField] protected AudioEvent audioEvent;
+        [SerializeField] protected bool playOnEnable;
+
+        protected AudioSource audioSource;
+
+        public AudioEvent AudioEvent
+        {
+            get { return audioEvent; }
+            set { audioEvent = value; }
+        }
     
-    public virtual void Play()
-    {
-        if (audioEvent)
-            audioEvent.Play(audioSource);
-    }
+        public virtual void Play()
+        {
+            if (audioEvent)
+                audioEvent.Play(audioSource);
+        }
 
-    void Awake()
-    {
-        audioSource = GetComponent<AudioSource>();
-    }
+        void Awake()
+        {
+            audioSource = GetComponent<AudioSource>();
+        }
 
-    protected override void OnEnable()
-    {
-        base.OnEnable();
+        protected override void OnEnable()
+        {
+            base.OnEnable();
 
-        if (playOnEnable)
+            if (playOnEnable)
+                Play();
+        }
+
+        public override void OnEventRaised()
+        {
             Play();
-    }
+        }
 
-    public override void OnEventRaised()
-    {
-        Play();
-    }
-
-    void OnDisable()
-    {
-        audioSource.Stop();
+        void OnDisable()
+        {
+            audioSource.Stop();
+        }
     }
 }

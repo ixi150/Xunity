@@ -1,5 +1,6 @@
 ﻿using UnityEditor;
 using UnityEngine;
+using Xunity.Authorization;
 using Xunity.ScriptableVariables;
 
 namespace Xunity.Editor.Drawers

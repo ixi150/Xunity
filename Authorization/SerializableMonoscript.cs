@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Xunity.ScriptableVariables
+namespace Xunity.Authorization
 {
     [Serializable]
     public class SerializableMonoscript : ISerializationCallbackReceiver

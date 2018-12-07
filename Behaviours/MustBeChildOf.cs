@@ -3,6 +3,7 @@ using Xunity.ScriptableReferences;
 
 namespace Xunity.Behaviours
 {
+    [ExecuteInEditMode]
     public class MustBeChildOf : GameBehaviour
     {
         const string PREFIX = ">>>";
@@ -15,7 +16,7 @@ namespace Xunity.Behaviours
             get { return PREFIX + parentName + SUFIX; }
         }
 
-        void OnValidate()
+        protected override void Awake()
         {
             if (gameObject.scene.name == null
                 || parentName == default(string)

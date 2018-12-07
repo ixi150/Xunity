@@ -29,7 +29,7 @@ Shader "Sprites/Tiled"
         Cull Off
         Lighting Off
         ZWrite Off
-        //Blend One OneMinusSrcAlpha
+        Blend One OneMinusSrcAlpha
 
         Pass
         {
@@ -48,8 +48,8 @@ Shader "Sprites/Tiled"
             {
                 coord.x = coord.x + _Tiling.x;
                 coord.y = coord.y + _Tiling.y;
-                coord.x = (coord.x * _Tiling.z)%1;
-                coord.y = (coord.y * _Tiling.w)%1;
+                coord.x = (coord.x * _Tiling.z) % 1;
+                coord.y = (coord.y * _Tiling.w) % 1;
                 return coord;
             }
             
@@ -67,7 +67,6 @@ Shader "Sprites/Tiled"
                 #endif
                 
                 OUT.texcoord = IN.texcoord;
-                //OUT.texcoord = GetTilledCoord(IN.texcoord);
                 OUT.color = IN.color * _Color * _RendererColor;
             
                 return OUT;
@@ -75,10 +74,9 @@ Shader "Sprites/Tiled"
             
             fixed4 Frag(v2f IN) : SV_Target
             {
-                //float2 uv = IN.texcoord;
                 float2 uv = GetTilledCoord(IN.texcoord);
-                fixed4 c = SampleSpriteTexture (uv) * IN.color;
-                //c.rgb *= c.a;
+                fixed4 c = SampleSpriteTexture(uv) * IN.color;
+                c.rgb = c.rgb * c.a;
                 return c;
             }
             

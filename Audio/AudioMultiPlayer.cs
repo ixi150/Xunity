@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Script.Audio
+namespace Xunity.Audio
 {
     public class AudioMultiPlayer : AudioPlayer
     {
