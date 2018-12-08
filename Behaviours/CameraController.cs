@@ -67,7 +67,7 @@ namespace Xunity.Behaviours
         {
             base.Awake();
 
-            camera = GetComponent<Camera>();
+            camera = GetComponentInChildren<Camera>();
             if (camera == null)
                 camera = Camera.main;
             if (camera == null)

@@ -2,7 +2,6 @@
 
 namespace Xunity.Behaviours
 {
-    [ExecuteInEditMode]
     [RequireComponent(typeof(Camera))]
     public class Blit : MonoBehaviour
     {
