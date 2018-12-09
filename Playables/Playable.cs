@@ -47,7 +47,7 @@ namespace Xunity.Playables
 
         public virtual bool CanPlay
         {
-            get { return !IsPlaying && ((Component) this).gameObject.activeInHierarchy; }
+            get { return ((Component) this).gameObject.activeInHierarchy; }
         }
 
         public virtual bool CanStop

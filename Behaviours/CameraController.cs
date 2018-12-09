@@ -19,6 +19,7 @@ namespace Xunity.Behaviours
         [SerializeField] Vector3FromComponent[] offsetModifiers;
 
         protected new Camera camera;
+        protected Transform cameraTransform;
         Vector3 velocity;
         Vector3 targetPosition;
 
@@ -72,6 +73,7 @@ namespace Xunity.Behaviours
                 camera = Camera.main;
             if (camera == null)
                 return;
+            cameraTransform = camera.transform;
             camera.opaqueSortMode = sortModeOpaque;
             camera.transparencySortMode = sortModeTransparency;
         }
@@ -79,17 +81,18 @@ namespace Xunity.Behaviours
         protected virtual void FixedUpdate()
         {
             if (targets && targets.Count > 0)
-                targetPosition = TargetPosition;
+                targetPosition = TargetOffset;
 
-            Position = Vector3.SmoothDamp(Position, TargetOffset, ref velocity, smoothTime);
+            cameraTransform.position =
+                Vector3.SmoothDamp(cameraTransform.position, targetPosition, ref velocity, smoothTime);
         }
 
         Vector3 GetModifiersOffsetFromTarget(Transform target)
         {
             return offsetModifiers
-                       .NotNull()
-                       .Select(modifier => modifier.Invoke(target))
-                       .Sum();
+                .NotNull()
+                .Select(modifier => modifier.Invoke(target))
+                .Sum();
         }
     }
 }

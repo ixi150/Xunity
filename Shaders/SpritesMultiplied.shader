@@ -1,6 +1,6 @@
 // Unity built-in shader source. Copyright (c) 2016 Unity Technologies. MIT license (see license.txt)
 
-Shader "Sprites/Tiled"
+Shader "Sprites/Multiplied"
 {
     Properties
     {
@@ -12,7 +12,8 @@ Shader "Sprites/Tiled"
         [PerRendererData] _AlphaTex ("External Alpha", 2D) = "white" {}
         [PerRendererData] _EnableExternalAlpha ("Enable External Alpha", Float) = 0
         
-        _Tiling ("Tiling", Vector) = (1,1,0,0)
+        _MultiplyAlpha ("MultiplyAlpha", Float) = 1
+        _MultiplyColor ("MultiplyColor", Float) = 1
     }
 
     SubShader
@@ -43,15 +44,7 @@ Shader "Sprites/Tiled"
             #include "UnitySprites.cginc"
             
             float4 _Tiling;
-            
-            float2 GetTilledCoord(float2 coord)
-            {
-                coord.x = coord.x + _Tiling.x;
-                coord.y = coord.y + _Tiling.y;
-                coord.x = (coord.x * _Tiling.z) ;
-                coord.y = (coord.y * _Tiling.w) ;
-                return coord;
-            }
+            float _MultiplyAlpha, _MultiplyColor;
             
             v2f Vert(appdata_t IN)
             {
@@ -74,9 +67,9 @@ Shader "Sprites/Tiled"
             
             fixed4 Frag(v2f IN) : SV_Target
             {
-                float2 uv = GetTilledCoord(IN.texcoord);
-                fixed4 c = SampleSpriteTexture(uv) * IN.color;
-                c.rgb = c.rgb * c.a;
+                fixed4 c = SampleSpriteTexture(IN.texcoord) * IN.color;
+                c.a = c.a * _MultiplyAlpha;
+                c.rgb = c.rgb * c.a * _MultiplyColor;
                 return c;
             }
             
