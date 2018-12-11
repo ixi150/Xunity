@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -63,6 +64,12 @@ namespace Xunity.Extensions
             return enumerable.Where(NotNull);
         }
 
+        public static void ForEach<T>(this IEnumerable<T> enumerable, Action<T> action)
+        {
+            foreach (var e in enumerable)
+                action(e);
+        }
+        
         static Vector3 Sum(Vector3 a, Vector3 b)
         {
             return a + b;

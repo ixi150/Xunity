@@ -15,26 +15,26 @@ namespace Xunity.Behaviours
         // ReSharper disable once InconsistentNaming
         // ReSharper disable once MemberCanBeProtected.Global
         // ReSharper disable once MemberCanBePrivate.Global
-        public new Transform transform
-        {
-#if UNITY_EDITOR
-            get { return cachedTransform ? cachedTransform : cachedTransform = base.transform; }
-#else
-            get { return cachedTransform; }
-#endif
-        }
+//        public new Transform transform
+//        {
+//#if UNITY_EDITOR
+//            get { return cachedTransform ? cachedTransform : cachedTransform = base.transform; }
+//#else
+//            get { return cachedTransform; }
+//#endif
+//        }
 
         // ReSharper disable once InconsistentNaming
         // ReSharper disable once MemberCanBeProtected.Global
         // ReSharper disable once MemberCanBePrivate.Global
-        public new GameObject gameObject
-        {
-#if UNITY_EDITOR
-            get { return cachedGameObject ? cachedGameObject : cachedGameObject = base.gameObject; }
-#else
-            get { return cachedGameObject; }
-#endif
-        }
+//        public new GameObject gameObject
+//        {
+//#if UNITY_EDITOR
+//            get { return cachedGameObject ? cachedGameObject : cachedGameObject = base.gameObject; }
+//#else
+//            get { return cachedGameObject; }
+//#endif
+//        }
 
         public Vector3 Position
         {
