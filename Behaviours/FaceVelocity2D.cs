@@ -20,8 +20,6 @@ namespace Xunity.Behaviours
 
         void FixedUpdate()
         {
-            //Mathf.SmoothDampAngle()
-        
             transform.right = Vector2.SmoothDamp(transform.right, rb.velocity, ref smoothVelocity, smoothTime);
         }
     }
